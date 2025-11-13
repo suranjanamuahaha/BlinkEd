@@ -33,7 +33,7 @@ export default function HomePage() {
 
                 <div className="flex-1 overflow-y-auto space-y-2">
                     <div className="p-2 bg-gray-200 rounded cursor-pointer">Photosynthesis</div>
-                    <div className="p-2 bg-gray-200 rounded cursor-pointer">What is GDP?</div>
+                    <div className="p-2 bg-gray-200 rounded cursor-pointer">What is BMI?</div>
                     <div className="p-2 bg-gray-200 rounded cursor-pointer">How to start sewing?</div>
                 </div>
             </aside>
