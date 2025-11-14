@@ -1,0 +1,11 @@
+A machine is simply a tool. It helps us do work. It makes difficult tasks much easier. All machines, from a simple lever to a complex robot, work using the same basic principle. They change energy.
+
+First, every machine needs an **input**. This input is energy. Energy can come from many sources. It might be electricity flowing into a computer. It could be fuel burning in a car engine. Sometimes, the input is human muscle power, like when you ride a bicycle. The machine takes this input energy.
+
+Next, the machine uses its internal parts. These parts are designed to transfer force or motion. Think of gears, wheels, levers, and pulleys. These components work together. They change the direction of the force. They might also change the strength of the force. For example, a car engine uses gears to turn the energy from burning fuel into rotational movement for the wheels.
+
+The goal of the machine is to produce an **output**. This output is the useful work. A washing machine’s output is clean clothes. A drill’s output is a hole in the wall. The machine has changed the input energy into the desired action.
+
+Machines often make us stronger. They multiply the force we put in. This is called mechanical advantage. A crane uses this advantage to lift tons of weight. Other machines make us faster. They increase the speed of the action.
+
+In summary, a machine is an energy transformer. It takes energy in, uses its parts to change that energy, and then performs a specific job. It saves us time and effort every single day.
