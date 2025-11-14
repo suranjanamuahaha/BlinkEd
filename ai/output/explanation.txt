@@ -1,11 +1,9 @@
-A machine is simply a tool. It helps us do work. Machines make difficult tasks easier. They also make slow tasks much faster. Think about a bicycle or a computer. Both are machines. They all work using the same basic steps.
+A machine is a tool. It helps us do work easily. Think of a simple machine first. A lever is a simple machine. A seesaw is a lever. You push down on one side. The other side goes up. You move a heavy object with less effort. That is how a simple machine works.
 
-Every machine needs energy. Energy is the power source. Without energy, the machine cannot move or function. Energy can come from many places. A car uses gasoline. A blender uses electricity. Your muscles provide energy for a shovel or a simple lever. This energy makes the machine ready to work.
+Complex machines are made of many simple parts. A car is a complex machine. So is a computer. These machines work by using energy. Energy makes the machine move or change things.
 
-Next, the machine needs an input. Input is the instruction or material you give the machine. When you type on a keyboard, that is input. When you load dirty dishes into a dishwasher, that is input.
+Most machines use electricity. Electricity is a form of energy. It flows through wires. It powers the machine’s parts. A motor is a key part of many machines. The motor takes electrical energy. It turns that energy into movement. This movement does the work.
 
-Once the machine has energy and input, it starts the process. The process is the actual work the machine does. The machine changes the input into something useful. A lawnmower uses its process to turn gasoline energy into sharp blades spinning quickly. A computer uses its process to turn keyboard clicks into words on a screen.
+Machines also use mechanical parts. Gears are common parts. Gears are wheels with teeth. They fit together. When one gear turns, it makes the next gear turn. This transfers the movement and force.
 
-The final step is the output. Output is the result of the machine’s work. The output of the lawnmower is cut grass. The output of the dishwasher is clean dishes.
-
-In short, a machine takes energy and input. It uses a specific process to create a useful output. This simple cycle explains how almost every machine, from a simple wheelbarrow to a complex robot, gets the job done.
+A machine takes an input. The input is the energy or force you put in. It then processes this input. Finally, it gives an output. The output is the useful work done. For example, a washing machine takes electrical energy (input). It spins clothes (process). It gives you clean laundry (output). Machines make our lives much easier. They multiply our effort.
