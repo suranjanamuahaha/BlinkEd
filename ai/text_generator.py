@@ -68,7 +68,9 @@ if __name__ == "__main__":
     print("Generated Explanation:\n")
     print(result)
 
-    save_path = "output/explanation.txt"
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+    save_path = os.path.join(BASE_DIR, "output", "explanation.txt")
+
     save_explanation(result, save_path)
 
     print(f"\nSaved to: {save_path}")
