@@ -27,46 +27,48 @@ def read_explanation(path: str) -> str:
 
 
 # ----------------------------
-# SPLIT INTO CHUNKS
+# SPLIT INTO CHUNKS (PARAGRAPHS)
 # ----------------------------
-def chunk_text(text: str, max_sentences=3):
-    """Break narration into short visual chunks for image prompting."""
-    sentences = re.split(r'(?<=[.!?]) +', text)
-    chunks = []
+def chunk_text(text: str):
+    """
+    Split narration into chunks based on paragraph breaks (blank lines or newlines).
+    Each paragraph will be turned into ONE image prompt.
+    """
+    # Split on one or more blank lines
+    raw_chunks = re.split(r'\n\s*\n', text.strip())
 
-    current = []
-    for s in sentences:
-        current.append(s)
-        if len(current) >= max_sentences:
-            chunks.append(" ".join(current))
-            current = []
-
-    if current:
-        chunks.append(" ".join(current))
+    # Clean empty chunks
+    chunks = [c.strip() for c in raw_chunks if c.strip()]
 
     return chunks
 
 
 # ----------------------------
-# SAFE GEMINI IMAGE PROMPT GENERATION
+# GENERATE EDUCATIONAL IMAGE PROMPT
 # ----------------------------
 def generate_image_prompt(narration_chunk: str) -> str:
     """
-    Convert narration chunk into an image prompt.
+    Convert narration chunk into a clean educational image prompt.
     Includes robust fallback extraction (never crashes).
     """
     model = genai.GenerativeModel(TEXT_MODEL)
 
     prompt = f"""
-Convert the following narration into a vivid, detailed image prompt.
+Convert the narration into a clear 1-line educational image prompt, possibly under 70 tokens.
 
 Rules:
-- No text overlays
-- No narration style, only visual description
-- Cinematic, realistic, descriptive
-- One single clear scene
-- Do NOT mention the narration text
-- Focus on visuals only
+- The illustration must be in landscape orientation (wide, horizontal).
+- The visual style must match the narration content closely.
+- Try to make it casual and natural and a little text-book style
+- this is something to explain the topic to STUDENTS
+- dont use multiple scenes or diagrams
+- dont use ANY text in the image
+- try to make the lines as smooth and straight as possible. make it look professional.
+- dont try hyperrealism and stuff keep it cartoonish fun and VERY clear
+- u can use text but if u do make it CLEAR and READABLE
+- keep it very very simple dont make anything complex
+- just explain the narration with visuals
+- dont make any complex flowcharts or diagram that is hard to understand
 
 Narration:
 "{narration_chunk}"
@@ -75,7 +77,7 @@ Narration:
     try:
         response = model.generate_content(
             prompt,
-            generation_config={"temperature": 0.7, "max_output_tokens": 1024}
+            generation_config={"temperature": 0.4, "max_output_tokens": 1024}
         )
 
         # --------------- SAFE EXTRACTION ---------------
@@ -83,7 +85,7 @@ Narration:
         if hasattr(response, "text") and response.text:
             return response.text.strip()
 
-        # 2. Fallback: extract manually
+        # 2. Fallback: extract manually from parts
         extracted = ""
         if hasattr(response, "candidates"):
             for cand in response.candidates:
@@ -95,8 +97,8 @@ Narration:
         if extracted.strip():
             return extracted.strip()
 
-        # 3. Final fallback
-        return "A detailed cinematic scene representing the narration."
+        # 3. Final fallback — educational, not cinematic
+        return "Simple educational diagram explaining the concept."
 
     except Exception as e:
         return f"Error generating prompt: {e}"
@@ -123,8 +125,8 @@ if __name__ == "__main__":
     print("Reading narration text...")
     narration = read_explanation(input_path)
 
-    print("Splitting into visual chunks...")
-    chunks = chunk_text(narration, max_sentences=3)
+    print("Splitting into paragraph-based chunks...")
+    chunks = chunk_text(narration)
 
     print(f"Total image chunks: {len(chunks)}\n")
 

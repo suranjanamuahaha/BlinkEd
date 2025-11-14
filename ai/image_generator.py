@@ -1,25 +1,31 @@
 import os
-import google.generativeai as genai
-from dotenv import load_dotenv
-
-# ----------------------------
-# INIT
-# ----------------------------
-load_dotenv()
-api_key = os.getenv("GEMINI_API_KEY")
-
-if not api_key:
-    raise ValueError("GEMINI_API_KEY not found.")
-
-genai.configure(api_key=api_key)
-
-IMAGE_MODEL = "gemini-2.0-flash"   # Best for image generation
+from diffusers import StableDiffusionXLPipeline
+import torch
+from PIL import Image
 
 
 # ----------------------------
-# READ IMAGE PROMPTS
+# LOAD SDXL TURBO MODEL
 # ----------------------------
-def read_prompts(path: str):
+print("🔄 Loading SDXL Turbo model... (first time slow, then cached)")
+
+pipe = StableDiffusionXLPipeline.from_pretrained(
+    "stabilityai/sdxl-turbo",
+    torch_dtype=torch.float16 if torch.cuda.is_available() else torch.float32,
+    variant="fp16"
+)
+
+# Determine device
+device = "cuda" if torch.cuda.is_available() else "cpu"
+pipe = pipe.to(device)
+
+print(f"✅ Using device: {device}")
+
+
+# ----------------------------
+# READ PROMPTS
+# ----------------------------
+def read_prompts(path):
     prompts = []
     with open(path, "r", encoding="utf-8") as f:
         lines = f.read().split("\n")
@@ -28,47 +34,48 @@ def read_prompts(path: str):
     for line in lines:
         if line.startswith("IMAGE"):
             if current:
-                prompts.append("\n".join(current).strip())
+                prompts.append(" ".join(current).strip())
                 current = []
         else:
             if line.strip():
                 current.append(line.strip())
 
     if current:
-        prompts.append("\n".join(current).strip())
+        prompts.append(" ".join(current).strip())
 
     return prompts
 
 
 # ----------------------------
-# GENERATE IMAGE SAFELY
+# GENERATE IMAGE LOCALLY
 # ----------------------------
 def generate_image(prompt: str):
-    model = genai.GenerativeModel(IMAGE_MODEL)
-
     try:
-        response = model.generate_image(
-            prompt=prompt,
-            size="1024x1024"   # best size for slideshows
-        )
+        # SDXL Turbo uses only 1 step — super fast
+        image = pipe(
+            prompt,
+            width=1024,
+            height=576,
+            num_inference_steps=1,
+            guidance_scale=0.0
+        ).images[0]
 
-        # Return raw image bytes
-        return response.images[0]  # flash returns array
+        return image
+
     except Exception as e:
-        print("Error generating image:", e)
+        print("❌ Error generating image:", e)
         return None
 
 
 # ----------------------------
-# SAVE IMAGE BYTES
+# SAVE IMAGE
 # ----------------------------
-def save_image(image_bytes, path: str):
-    with open(path, "wb") as f:
-        f.write(image_bytes)
+def save_image(image: Image.Image, path: str):
+    image.save(path)
 
 
 # ----------------------------
-# MAIN
+# MAIN EXECUTION
 # ----------------------------
 if __name__ == "__main__":
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -77,22 +84,20 @@ if __name__ == "__main__":
 
     os.makedirs(frames_dir, exist_ok=True)
 
-    print("Reading prompts...")
+    print("📘 Reading prompts...")
     prompts = read_prompts(prompts_path)
 
-    print(f"Total prompts: {len(prompts)}")
+    print(f"📌 Total prompts: {len(prompts)}")
 
     for i, prompt in enumerate(prompts, start=1):
-        print(f"\nGenerating image {i}/{len(prompts)}...")
-        img_bytes = generate_image(prompt)
+        print(f"\n🎨 Generating image {i}/{len(prompts)}…")
+        img = generate_image(prompt)
 
-        if img_bytes:
-            filename = f"frame_{i:02d}.png"
-            save_path = os.path.join(frames_dir, filename)
-            save_image(img_bytes, save_path)
-            print(f"Saved: {save_path}")
+        if img:
+            save_path = os.path.join(frames_dir, f"frame_{i:02d}.png")
+            save_image(img, save_path)
+            print(f"✔ Saved: {save_path}")
         else:
-            print("Skipped due to error.")
+            print("⚠ Skipped due to error.")
 
-    print("\nAll done! Images saved in:")
-    print(frames_dir)
+    print("\n🎉 ALL DONE! Images saved!")
