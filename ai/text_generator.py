@@ -16,8 +16,8 @@ TEXT_MODEL = "gemini-flash-latest"
 def generate_explanation(topic: str):
     model = genai.GenerativeModel(TEXT_MODEL)
 
-    prompt = f"""Explain the following topic in a simple and clear way.
-Write 250 to 320 words.
+    prompt = f"""Explain the following topic in a simple and clear way, like you are explaining it to students.
+Write 250 to 320 words. DONT INCLUDE ANY MATHEMATICAL FORMULAS.
 Use short sentences.
 Beginner friendly.
 Topic: {topic}"""
@@ -62,7 +62,7 @@ def save_explanation(text: str, output_path: str):
 
 
 if __name__ == "__main__":
-    topic = "How does a machine work?"
+    topic = "what is orifice co-efficient?"
     result = generate_explanation(topic)
 
     print("Generated Explanation:\n")

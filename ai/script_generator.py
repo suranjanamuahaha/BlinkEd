@@ -34,12 +34,8 @@ def chunk_text(text: str):
     Split narration into chunks based on paragraph breaks (blank lines or newlines).
     Each paragraph will be turned into ONE image prompt.
     """
-    # Split on one or more blank lines
     raw_chunks = re.split(r'\n\s*\n', text.strip())
-
-    # Clean empty chunks
     chunks = [c.strip() for c in raw_chunks if c.strip()]
-
     return chunks
 
 
@@ -58,17 +54,16 @@ Convert the narration into a clear 1-line educational image prompt, possibly und
 
 Rules:
 - The illustration must be in landscape orientation (wide, horizontal).
-- The visual style must match the narration content closely.
-- Try to make it casual and natural and a little text-book style
-- this is something to explain the topic to STUDENTS
-- dont use multiple scenes or diagrams
-- dont use ANY text in the image
-- try to make the lines as smooth and straight as possible. make it look professional.
-- dont try hyperrealism and stuff keep it cartoonish fun and VERY clear
-- u can use text but if u do make it CLEAR and READABLE
-- keep it very very simple dont make anything complex
-- just explain the narration with visuals
-- dont make any complex flowcharts or diagram that is hard to understand
+- The visual style must match the narration content closely and be a bit realistic and engaging.
+- Try to make it casual and natural and a little text-book style.
+- This is something to explain the topic to STUDENTS.
+- Don't use multiple scenes or diagrams.
+- DONT USE ANY TEXT IN THE IMAGE.
+- Try to make the lines smooth, straight, and professional.
+- Avoid hyperrealism; keep it cartoonish, fun, and very clear.
+- You can use text ONLY if it is clear and readable.
+- Keep everything simple and easy to understand.
+- Do NOT create complex flowcharts or hard diagrams.
 
 Narration:
 "{narration_chunk}"
@@ -80,12 +75,11 @@ Narration:
             generation_config={"temperature": 0.4, "max_output_tokens": 1024}
         )
 
-        # --------------- SAFE EXTRACTION ---------------
         # 1. Try response.text
         if hasattr(response, "text") and response.text:
             return response.text.strip()
 
-        # 2. Fallback: extract manually from parts
+        # 2. Extract manually
         extracted = ""
         if hasattr(response, "candidates"):
             for cand in response.candidates:
@@ -97,7 +91,7 @@ Narration:
         if extracted.strip():
             return extracted.strip()
 
-        # 3. Final fallback — educational, not cinematic
+        # 3. Fallback
         return "Simple educational diagram explaining the concept."
 
     except Exception as e:
@@ -133,8 +127,7 @@ if __name__ == "__main__":
     prompts = []
     for i, ch in enumerate(chunks, start=1):
         print(f"Generating image prompt {i}/{len(chunks)}...")
-        prompt_text = generate_image_prompt(ch)
-        prompts.append(prompt_text)
+        prompts.append(generate_image_prompt(ch))
 
     save_prompts(prompts, output_path)
 
