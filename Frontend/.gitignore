@@ -22,3 +22,20 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+
+# Environment variables
+.env
+*.env
+.env.*
+
+#Node
+node_modules/
+
+# Python caches
+__pycache__/
+*.pyc
+
+# Output folders
+output/
+ai/output/
