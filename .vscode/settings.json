@@ -1,0 +1,10 @@
+{
+  "python.analysis.exclude": [
+    "**/Backend/app/**",
+    "**/Backend/archived_app/**"
+  ],
+  "files.exclude": {
+    "**/Backend/app/**": true,
+    "**/Backend/archived_app/**": true
+  }
+}

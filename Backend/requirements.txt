@@ -1,0 +1,9 @@
+django==4.2.8
+djangorestframework==3.14.0
+djangorestframework-simplejwt==5.5.1
+django-cors-headers==4.3.1
+psycopg2-binary==2.9.11
+python-dotenv==1.0.0
+
+# The file is intentionally minimal for the Django auth + PostgreSQL setup.
+# Add extra AI/processing dependencies later when those services are enabled.

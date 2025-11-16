@@ -1,0 +1,27 @@
+IMAGE 1:
+Clear, textbook-style illustration of water discharging from a tank through an orifice, emphasizing the narrowing fluid jet (vena contracta).
+
+IMAGE 2:
+Clear cartoon illustration of a large water tank showing a small orifice hole controlling the fluid flow. Landscape, smooth lines.
+
+IMAGE 3:
+Educational cartoon of a clean, perfect stream of fluid exiting a simple tank, demonstrating maximum theoretical flow.
+
+IMAGE 4:
+Educational cross-section diagram of water exiting an orifice. Clearly show the fluid stream narrowing (vena contracta) and subtle friction lines near the hole's inner edges.
+
+IMAGE 5:
+A wide, textbook illustration comparing the large calculated theoretical fluid flow volume to the smaller actual flow volume exiting a simple pipe.
+
+IMAGE 6:
+Textbook illustration of fluid flow through an orifice plate in a pipe. Contrast the ideal, straight flow calculation with the actual, contracted flow (vena contracta).
+
+IMAGE 7:
+Textbook cross-section of an orifice plate in a pipe. Illustrate the fluid jet contraction (vena contracta) comparing actual flow area to the orifice opening.
+
+IMAGE 8:
+Simple textbook illustration comparing theoretical 100% fluid flow from a nozzle versus the actual 60% flow, showing friction loss.
+
+IMAGE 9:
+**Textbook illustration of an engineer checking a simple flow meter installed in a wide pipe, highlighting the flow coefficient calculation.**
+
